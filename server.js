@@ -2,39 +2,19 @@ import express from "express";
 
 const app = express();
 
-app.get("/", async (req, res) => {
+app.use(express.json());
 
-  try {
+app.post("/treno", async (req, res) => {
 
-    const r = await fetch(
-      "https://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/autocompletaStazione/Brescia",
-      {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/137.0 Safari/537.36"
-        }
-      }
-    );
+  const body = req.body;
 
-    const testo = await r.text();
-
-    res.json({
-      status: r.status,
-      primi500: testo.substring(0, 500)
-    });
-
-  } catch (e) {
-
-    res.json({
-      errore: e.message
-    });
-
-  }
+  res.json({
+    ricevuto: body,
+    ok: true
+  });
 
 });
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log("Server avviato");
-});
+app.listen(PORT);
