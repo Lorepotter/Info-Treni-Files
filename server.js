@@ -110,13 +110,7 @@ async function vtFetch(url) {
           )
         )
     );
-      console.log(
-  JSON.stringify(
-    fermata,
-    null,
-    2
-  )
-);
+      
 
     if (!fermata) {
 
@@ -166,7 +160,6 @@ if (
   !binarioFinale ||
   binarioFinale === "non disponibile"
 ) {
-console.log("ENTRO NEL FALLBACK");
   const rAuto = await vtFetch(
     `https://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/autocompletaStazione/${encodeURIComponent(stazione)}`
   );
@@ -194,13 +187,7 @@ console.log("ENTRO NEL FALLBACK");
 
           const partenzeFallback =
             await rPartenze.json();
-          console.log(
-  JSON.stringify(
-    partenzeFallback,
-    null,
-    2
-  )
-);
+          
           const trenoFallback =
   partenzeFallback.find(
     t =>
@@ -211,17 +198,23 @@ console.log("ENTRO NEL FALLBACK");
 
           if (trenoFallback) {
 
-            if (!partenzaFinale) {
-              partenzaFinale =
-                trenoFallback.compOrarioPartenza;
-            }
+  if (
+    !partenzaFinale ||
+    partenzaFinale === "non disponibile"
+  ) {
+    partenzaFinale =
+      trenoFallback.compOrarioPartenza;
+  }
 
-            if (!binarioFinale) {
+  if (
+    !binarioFinale ||
+    binarioFinale === "non disponibile"
+  ) {
 
-              binarioFinale =
-                trenoFallback.binarioEffettivoPartenzaDescrizione ||
-                trenoFallback.binarioProgrammatoPartenzaDescrizione ||
-                null;
+    binarioFinale =
+      trenoFallback.binarioEffettivoPartenzaDescrizione ||
+      trenoFallback.binarioProgrammatoPartenzaDescrizione ||
+      null;
             }
           }
         }
