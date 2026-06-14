@@ -4,6 +4,10 @@ app.use(express.json());
 app.post("/treno", async (req, res) => {
 try {
   const body = req.body;
+  console.log(
+  "BODY RICEVUTO:",
+  JSON.stringify(body, null, 2)
+);
   const input = (body.input || "").trim();
   const destinazione = (body.destinazione || "").trim();
 async function vtFetch(url) {
