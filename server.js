@@ -4,11 +4,11 @@ app.use(express.json());
 app.post("/treno", async (req, res) => {
 try {
   const body = req.body;
-  console.log(
-  "BODY RICEVUTO:",
-  JSON.stringify(body, null, 2)
-);
-  const input = (body.input || "").trim();
+  let input = (body.input || "").trim();
+if (/^[0-9\s.,]+$/.test(input)) {
+
+  input = input.replace(/[^\d]/g, "");
+}
   const destinazione = (body.destinazione || "").trim();
 async function vtFetch(url) {
   return fetch(url, {
