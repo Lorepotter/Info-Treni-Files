@@ -149,11 +149,16 @@ async function vtFetch(url) {
       fermata.ritardoArrivo ??
       dati2.ritardo ??
       0;
-   let arrivoFinale = arrivo;
+let arrivoFinale = arrivo;
 let partenzaFinale = partenza;
 let binarioFinale = binario;
 
-if (!partenzaFinale || !binarioFinale) {
+if (
+  !partenzaFinale ||
+  partenzaFinale === "non disponibile" ||
+  !binarioFinale ||
+  binarioFinale === "non disponibile"
+) {
 
   const rAuto = await vtFetch(
     `https://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/autocompletaStazione/${encodeURIComponent(stazione)}`
