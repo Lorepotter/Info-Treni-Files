@@ -246,16 +246,15 @@ if (origineTreno === stazioneRichiesta) {
 
   risposta =
     `Il treno numero ${input} diretto a ${dati2.destinazione} ` +
-    `è previsto in arrivo alle ore ${arrivoFinale}, ` + 
-      `e in partenza da ${dati2.origine} alle ore ${partenzaFinale} ` +
-    `dal binario ${binarioFinale}. `
+    `è previsto in partenza da ${dati2.origine} alle ore ${partenzaFinale} ` +
+    `dal binario ${binarioFinale}. ` +
+    `Al momento il treno ha un ritardo di ${ritardo} minuti.`;
 } else {
 
   risposta =
     `Il treno numero ${input}, proveniente da ${dati2.origine} e diretto a ${dati2.destinazione}, ` +
     `effettua fermata a ${fermata.stazione}. ` +
-    `L’arrivo è prevista alle ore ${arrivoFinale}.` +
-    `La partenza è prevista alle ore ${partenzaFinale} dal binario ${binarioFinale}. ` +
+    `La partenza da ${fermata.stazione} è prevista alle ore ${partenzaFinale} dal binario ${binarioFinale}. ` +
     `Al momento il treno ha un ritardo di ${ritardo} minuti.`;
 }
 
@@ -500,7 +499,8 @@ if (origineTreno === stazionePartenzaRichiesta) {
     `Il primo treno trovato è il treno numero ${trovato.numeroTreno} ` +
     `diretto a ${datiAndamentoFinale.destinazione}. ` +
     `La partenza da ${datiAndamentoFinale.origine} è prevista alle ore ${partenza} ` +
-    `dal binario ${binario}. `
+    `dal binario ${binario}. ` +
+    `Al momento ha un ritardo di ${trovato.ritardo || 0} minuti.`;
 
 } else {
 
@@ -508,7 +508,7 @@ if (origineTreno === stazionePartenzaRichiesta) {
     `Il primo treno trovato è il treno numero ${trovato.numeroTreno}, ` +
     `proveniente da ${datiAndamentoFinale.origine} ` +
     `e diretto a ${datiAndamentoFinale.destinazione}. ` +
-    `È previsto in partenza alle ore ${partenza} ` +
+    `È previsto in partenza da ${stazionePartenzaRichiesta}  ore ${partenza} ` +
     `dal binario ${binario}. ` +
     `Al momento ha un ritardo di ${trovato.ritardo || 0} minuti.`;
 }
