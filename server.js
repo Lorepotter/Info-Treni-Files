@@ -351,29 +351,51 @@ if (!primaRiga) {
 
       const fermateTreno = await rTratte.json();
 
-      const passaDaDestinazione =
-        fermateTreno.some(
-          f =>
-            f.stazione &&
-            (
-              f.stazione
-                .trim()
-                .toUpperCase()
-                .includes(destinazioneRicercata)
-              ||
-              destinazioneRicercata.includes(
-                f.stazione
-                  .trim()
-                  .toUpperCase()
-              )
-            )
-        );
+      const indicePartenza = fermateTreno.findIndex(
+  f =>
+    f.stazione &&
+    (
+      f.stazione
+        .trim()
+        .toUpperCase()
+        .includes(input.trim().toUpperCase())
+      ||
+      input
+        .trim()
+        .toUpperCase()
+        .includes(
+          f.stazione
+            .trim()
+            .toUpperCase()
+        )
+    )
+);
 
-      if (passaDaDestinazione) {
+const indiceDestinazione = fermateTreno.findIndex(
+  f =>
+    f.stazione &&
+    (
+      f.stazione
+        .trim()
+        .toUpperCase()
+        .includes(destinazioneRicercata)
+      ||
+      destinazioneRicercata.includes(
+        f.stazione
+          .trim()
+          .toUpperCase()
+      )
+    )
+);
 
-        trovato = treno;
-        break;
-      }
+if (
+  indicePartenza !== -1 &&
+  indiceDestinazione !== -1 &&
+  indiceDestinazione > indicePartenza
+) {
+  trovato = treno;
+  break;
+}
 
     } catch (e) {
       continue;
