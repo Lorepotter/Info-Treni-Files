@@ -110,6 +110,13 @@ async function vtFetch(url) {
           )
         )
     );
+      console.log(
+  JSON.stringify(
+    fermata,
+    null,
+    2
+  )
+);
 
     if (!fermata) {
 
@@ -159,7 +166,7 @@ if (
   !binarioFinale ||
   binarioFinale === "non disponibile"
 ) {
-
+console.log("ENTRO NEL FALLBACK");
   const rAuto = await vtFetch(
     `https://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/autocompletaStazione/${encodeURIComponent(stazione)}`
   );
@@ -187,13 +194,20 @@ if (
 
           const partenzeFallback =
             await rPartenze.json();
-
+          console.log(
+  JSON.stringify(
+    partenzeFallback,
+    null,
+    2
+  )
+);
           const trenoFallback =
-            partenzeFallback.find(
-              t =>
-                String(t.numeroTreno) ===
-                String(input)
-            );
+  partenzeFallback.find(
+    t =>
+      String(t.numeroTreno).trim() ===
+      String(input).trim()
+  );
+
 
           if (trenoFallback) {
 
