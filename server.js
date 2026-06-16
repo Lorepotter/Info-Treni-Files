@@ -402,6 +402,21 @@ const indiceDestinazione = fermateTreno.findIndex(
       )
     )
 );
+//gandalf
+if (
+  indicePartenza !== -1 &&
+  indiceDestinazione !== -1 &&
+  indiceDestinazione > indicePartenza
+) {
+
+  console.log(
+    "FERMATA PARTENZA:",
+    JSON.stringify(
+      fermateTreno[indicePartenza],
+      null,
+      2
+    )
+  );
 
 if (
   indicePartenza !== -1 &&
