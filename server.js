@@ -408,19 +408,9 @@ if (
   indiceDestinazione !== -1 &&
   indiceDestinazione > indicePartenza
 ) {
-
-  const fermataPartenza = fermateTreno[indicePartenza];
-  const partenzaTeorica =
-    fermataPartenza.partenza_teorica
-      ? new Date(fermataPartenza.partenza_teorica).getTime()
-      : 0;
-  if (partenzaTeorica < Date.now()) {
-    continue;
-  }
   trovato = treno;
   break;
 }
-
 
     } catch (e) {
       continue;
