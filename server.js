@@ -408,9 +408,19 @@ if (
   indiceDestinazione !== -1 &&
   indiceDestinazione > indicePartenza
 ) {
+
+  const fermataPartenza = fermateTreno[indicePartenza];
+  const partenzaTeorica =
+    fermataPartenza.partenza_teorica
+      ? new Date(fermataPartenza.partenza_teorica).getTime()
+      : 0;
+  if (partenzaTeorica < Date.now()) {
+    continue;
+  }
   trovato = treno;
   break;
 }
+
 
     } catch (e) {
       continue;
@@ -512,7 +522,7 @@ if (origineTreno === stazionePartenzaRichiesta) {
     `Il primo treno trovato è il treno numero ${trovato.numeroTreno}, ` +
     `proveniente da ${datiAndamentoFinale.origine} ` +
     `e diretto a ${datiAndamentoFinale.destinazione}. ` +
-    `È previsto in partenza da ${stazionePartenzaRichiesta} alle ore ${partenza} ` +
+    `È previsto in partenza da ${stazionePartenzaRichiesta}  alle ore ${partenza} ` +
     `dal binario ${binario}. ` +
     `Al momento ha un ritardo di ${trovato.ritardo || 0} minuti.`;
 }
