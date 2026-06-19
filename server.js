@@ -402,30 +402,37 @@ const indiceDestinazione = fermateTreno.findIndex(
       )
     )
 );
-//gandalf
 if (
   indicePartenza !== -1 &&
   indiceDestinazione !== -1 &&
   indiceDestinazione > indicePartenza
 ) {
 
-  console.log(
-    "FERMATA PARTENZA:",
-    JSON.stringify(
-      fermateTreno[indicePartenza],
-      null,
-      2
-    )
-  );
+  const fermataPartenza =
+    fermateTreno[indicePartenza];
 
-if (
-  indicePartenza !== -1 &&
-  indiceDestinazione !== -1 &&
-  indiceDestinazione > indicePartenza
-) {
+  const adesso = new Date();
+
+  if (fermataPartenza.partenzaReale) {
+    continue;
+  }
+
+  if (fermataPartenza.partenza_teorica) {
+
+    const dataPartenza =
+      new Date(
+        fermataPartenza.partenza_teorica
+      );
+
+    if (dataPartenza <= adesso) {
+      continue;
+    }
+  }
+
   trovato = treno;
   break;
 }
+
 
     } catch (e) {
       continue;
