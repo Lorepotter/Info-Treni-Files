@@ -115,7 +115,19 @@ async function vtFetch(url) {
         )
     );
       
-
+//GANDALF
+console.log("================================");
+console.log("TRENO:", input);
+console.log("STAZIONE:", stazione);
+console.log(
+  JSON.stringify(
+    fermata,
+    null,
+    2
+  )
+);
+console.log("================================");
+//GANDALF
     if (!fermata) {
 
       return res.json({
