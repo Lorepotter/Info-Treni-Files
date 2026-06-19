@@ -120,13 +120,53 @@ console.log("================================");
 console.log("TRENO:", input);
 console.log("STAZIONE:", stazione);
 console.log(
+  "ARRIVO TEORICO:",
+  fermata.arrivo_teorico
+);
+console.log(
+  "PARTENZA TEORICA:",
+  fermata.partenza_teorica
+);
+console.log(
+  "ARRIVO REALE:",
+  fermata.arrivoReale
+);
+
+console.log(
+  "PARTENZA REALE:",
+  fermata.partenzaReale
+);
+
+console.log(
+  "BINARIO EFF ARR:",
+  fermata.binarioEffettivoArrivoDescrizione
+);
+
+console.log(
+  "BINARIO PROG ARR:",
+  fermata.binarioProgrammatoArrivoDescrizione
+);
+
+console.log(
+  "BINARIO EFF PART:",
+  fermata.binarioEffettivoPartenzaDescrizione
+);
+
+console.log(
+  "BINARIO PROG PART:",
+  fermata.binarioProgrammatoPartenzaDescrizione
+);
+
+console.log(
   JSON.stringify(
     fermata,
     null,
     2
   )
 );
+
 console.log("================================");
+
 //GANDALF
     if (!fermata) {
 
