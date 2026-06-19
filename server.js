@@ -125,20 +125,26 @@ async function vtFetch(url) {
 //console1
 console.log(
   "ARRIVO_TEORICO_RAW:",
-  fermata?.arrivo_teorico
+  fermata?.fermata?.arrivo_teorico
 );
 
-console.log(
-  "DATE_RAW:",
-  new Date(fermata?.arrivo_teorico)
-);
+if (fermata?.fermata?.arrivo_teorico) {
 
-console.log(
-  "ISO:",
-  new Date(
-    fermata?.arrivo_teorico
-  ).toISOString()
-);
+  console.log(
+    "DATE_RAW:",
+    new Date(
+      fermata.fermata.arrivo_teorico
+    )
+  );
+
+  console.log(
+    "ISO:",
+    new Date(
+      fermata.fermata.arrivo_teorico
+    ).toISOString()
+  );
+}
+
 //console1
 const arrivo =
   fermata.fermata?.arrivo_teorico
