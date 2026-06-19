@@ -246,19 +246,45 @@ const stazioneRichiesta =
     .trim()
     .toUpperCase();
 
+const destinazioneTreno =
+  (dati2.destinazione || "")
+    .trim()
+    .toUpperCase();
 if (origineTreno === stazioneRichiesta) {
-
   risposta =
     `Il treno numero ${input} diretto a ${dati2.destinazione} ` +
     `è previsto in partenza da ${dati2.origine} alle ore ${partenzaFinale} ` +
     `dal binario ${binarioFinale}. ` +
     `Al momento il treno ha un ritardo di ${ritardo} minuti.`;
+} else if (destinazioneTreno === stazioneRichiesta) {
+  const arrivato =
+    fermata.arrivoReale ||
+    fermata.arrivo_effettivo ||
+    fermata.arrivoEffettivo;
+  if (arrivato) {
+    const oraArrivo =
+      new Date(arrivato)
+        .toLocaleTimeString("it-IT", {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+    risposta =
+      `Il treno numero ${input}, proveniente da ${dati2.origine}, ` +
+      `è già arrivato a ${fermata.stazione} alle ore ${oraArrivo} ` +
+      `al binario ${binarioFinale}.`;
+  } else {
+    risposta =
+      `Il treno numero ${input}, proveniente da ${dati2.origine}, ` +
+      `è previsto in arrivo a ${fermata.stazione} alle ore ${arrivoFinale} ` +
+      `al binario ${binarioFinale}. ` +
+      `Al momento il treno ha un ritardo di ${ritardo} minuti.`;
+  }
 } else {
-
   risposta =
     `Il treno numero ${input}, proveniente da ${dati2.origine} e diretto a ${dati2.destinazione}, ` +
     `effettua fermata a ${fermata.stazione}. ` +
-    `La partenza da ${fermata.stazione} è prevista alle ore ${partenzaFinale} dal binario ${binarioFinale}. ` +
+    `La partenza da ${fermata.stazione} è prevista alle ore ${partenzaFinale} ` +
+    `dal binario ${binarioFinale}. ` +
     `Al momento il treno ha un ritardo di ${ritardo} minuti.`;
 }
 
