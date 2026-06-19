@@ -128,20 +128,24 @@ const arrivo =
     ? new Date(
         fermata.fermata.arrivo_teorico
       ).toLocaleTimeString("it-IT", {
+        timeZone: "Europe/Rome",
         hour: "2-digit",
         minute: "2-digit"
       })
     : "non disponibile";
 
 
-    const partenza =
-      fermata.partenza_teorica
-        ? new Date(fermata.partenza_teorica)
-            .toLocaleTimeString("it-IT", {
-              hour: "2-digit",
-              minute: "2-digit"
-            })
-        : "non disponibile";
+
+const partenza =
+  fermata.partenza_teorica
+    ? new Date(fermata.partenza_teorica)
+        .toLocaleTimeString("it-IT", {
+          timeZone: "Europe/Rome",
+          hour: "2-digit",
+          minute: "2-digit"
+        })
+    : "non disponibile";
+
 
     const binario =
   fermata.fermata?.binarioEffettivoPartenzaDescrizione ||
@@ -150,12 +154,14 @@ const arrivo =
   fermata.fermata?.binarioProgrammatoArrivoDescrizione ||
   "non disponibile";
 
-
+	
     const ritardo =
       fermata.ritardoPartenza ??
       fermata.ritardoArrivo ??
       dati2.ritardo ??
       0;
+const ritardoVisualizzato =
+  ritardo <= 0 ? 0 : ritardo;
 let arrivoFinale = arrivo;
 let partenzaFinale = partenza;
 let binarioFinale = binario;
@@ -257,7 +263,7 @@ if (origineTreno === stazioneRichiesta) {
     `Il treno numero ${input} diretto a ${dati2.destinazione} ` +
     `è previsto in partenza da ${dati2.origine} alle ore ${partenzaFinale} ` +
     `dal binario ${binarioFinale}. ` +
-    `Al momento il treno ha un ritardo di ${ritardo} minuti.`;
+    `Al momento il treno ha un ritardo di ${ritardoVisualizzato} minuti.`;
 } else if (destinazioneTreno === stazioneRichiesta) {
 const arrivato =
   fermata.fermata?.effettiva;
@@ -277,7 +283,7 @@ const arrivato =
       `Il treno numero ${input}, proveniente da ${dati2.origine}, ` +
       `è previsto in arrivo a ${fermata.stazione} alle ore ${arrivoFinale} ` +
       `al binario ${binarioFinale}. ` +
-      `Al momento il treno ha un ritardo di ${ritardo} minuti.`;
+      `Al momento il treno ha un ritardo di ${ritardoVisualizzato} minuti.`;
   }
 } else {
   risposta =
@@ -285,7 +291,7 @@ const arrivato =
     `effettua fermata a ${fermata.stazione}. ` +
     `La partenza da ${fermata.stazione} è prevista alle ore ${partenzaFinale} ` +
     `dal binario ${binarioFinale}. ` +
-    `Al momento il treno ha un ritardo di ${ritardo} minuti.`;
+    `Al momento il treno ha un ritardo di ${ritardoVisualizzato} minuti.`;
 }
 
     return res.json({
@@ -519,6 +525,7 @@ const arrivo =
   fermataPartenza?.arrivo_teorico
     ? new Date(fermataPartenza.arrivo_teorico)
         .toLocaleTimeString("it-IT", {
+          timeZone: "Europe/Rome",
           hour: "2-digit",
           minute: "2-digit"
         })
@@ -528,9 +535,12 @@ const partenza =
   fermataPartenza?.partenza_teorica
     ? new Date(fermataPartenza.partenza_teorica)
         .toLocaleTimeString("it-IT", {
+          timeZone: "Europe/Rome",
           hour: "2-digit",
           minute: "2-digit"
         })
+    : "non disponibile";
+
     : trovato.compOrarioPartenza;
 
 let risposta;
@@ -545,6 +555,10 @@ const stazionePartenzaRichiesta =
     .trim()
     .toUpperCase();
 
+const ritardoVisualizzato =
+  (trovato.ritardo ?? 0) < 0
+    ? 0
+    : (trovato.ritardo ?? 0);
 if (origineTreno === stazionePartenzaRichiesta) {
 
   risposta =
@@ -552,7 +566,7 @@ if (origineTreno === stazionePartenzaRichiesta) {
     `diretto a ${datiAndamentoFinale.destinazione}. ` +
     `La partenza da ${datiAndamentoFinale.origine} è prevista alle ore ${partenza} ` +
     `dal binario ${binario}. ` +
-    `Al momento ha un ritardo di ${trovato.ritardo || 0} minuti.`;
+    `Al momento ha un ritardo di ${ritardoVisualizzato} minuti.`;
 
 } else {
 
@@ -562,7 +576,7 @@ if (origineTreno === stazionePartenzaRichiesta) {
     `e diretto a ${datiAndamentoFinale.destinazione}. ` +
     `È previsto in partenza da ${stazionePartenzaRichiesta}  alle ore ${partenza} ` +
     `dal binario ${binario}. ` +
-    `Al momento ha un ritardo di ${trovato.ritardo || 0} minuti.`;
+    `Al momento ha un ritardo di ${ritardoVisualizzato} minuti.`;
 }
 
   return res.json({
