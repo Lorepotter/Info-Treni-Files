@@ -122,26 +122,40 @@ async function vtFetch(url) {
           `Il treno ${input} non effettua fermata a ${stazione}.`
       });
     }
-const arrivo =
+
+    const arrivo =
   fermata.fermata?.arrivo_teorico
-    ? new Date(
-        fermata.fermata.arrivo_teorico
-      ).toLocaleTimeString("it-IT", {
-        hour: "2-digit",
-        minute: "2-digit"
-      })
+    ? new Intl.DateTimeFormat(
+        "it-IT",
+        {
+          timeZone: "Europe/Rome",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false
+        }
+      ).format(
+        new Date(
+          fermata.fermata.arrivo_teorico
+        )
+      )
     : "non disponibile";
 
 const partenza =
-  fermata.partenza_teorica
-    ? new Date(fermata.partenza_teorica)
-        .toLocaleTimeString("it-IT", {
+  fermata.fermata?.partenza_teorica
+    ? new Intl.DateTimeFormat(
+        "it-IT",
+        {
           timeZone: "Europe/Rome",
           hour: "2-digit",
-          minute: "2-digit"
-        })
+          minute: "2-digit",
+          hour12: false
+        }
+      ).format(
+        new Date(
+          fermata.fermata.partenza_teorica
+        )
+      )
     : "non disponibile";
-
 
     const binario =
   fermata.fermata?.binarioEffettivoPartenzaDescrizione ||
