@@ -115,59 +115,6 @@ async function vtFetch(url) {
         )
     );
       
-//GANDALF
-console.log("================================");
-console.log("TRENO:", input);
-console.log("STAZIONE:", stazione);
-console.log(
-  "ARRIVO TEORICO:",
-  fermata.arrivo_teorico
-);
-console.log(
-  "PARTENZA TEORICA:",
-  fermata.partenza_teorica
-);
-console.log(
-  "ARRIVO REALE:",
-  fermata.arrivoReale
-);
-
-console.log(
-  "PARTENZA REALE:",
-  fermata.partenzaReale
-);
-
-console.log(
-  "BINARIO EFF ARR:",
-  fermata.binarioEffettivoArrivoDescrizione
-);
-
-console.log(
-  "BINARIO PROG ARR:",
-  fermata.binarioProgrammatoArrivoDescrizione
-);
-
-console.log(
-  "BINARIO EFF PART:",
-  fermata.binarioEffettivoPartenzaDescrizione
-);
-
-console.log(
-  "BINARIO PROG PART:",
-  fermata.binarioProgrammatoPartenzaDescrizione
-);
-
-console.log(
-  JSON.stringify(
-    fermata,
-    null,
-    2
-  )
-);
-
-console.log("================================");
-
-//GANDALF
     if (!fermata) {
 
       return res.json({
@@ -176,14 +123,16 @@ console.log("================================");
       });
     }
 
-    const arrivo =
-      fermata.arrivo_teorico
-        ? new Date(fermata.arrivo_teorico)
-            .toLocaleTimeString("it-IT", {
-              hour: "2-digit",
-              minute: "2-digit"
-            })
-        : "non disponibile";
+const arrivo =
+  fermata.fermata?.arrivo_teorico
+    ? new Date(
+        fermata.fermata.arrivo_teorico
+      ).toLocaleTimeString("it-IT", {
+        hour: "2-digit",
+        minute: "2-digit"
+      })
+    : "non disponibile";
+
 
     const partenza =
       fermata.partenza_teorica
@@ -195,11 +144,12 @@ console.log("================================");
         : "non disponibile";
 
     const binario =
-      fermata.binarioEffettivoPartenzaDescrizione ||
-      fermata.binarioProgrammatoPartenzaDescrizione ||
-      fermata.binarioEffettivoArrivoDescrizione ||
-      fermata.binarioProgrammatoArrivoDescrizione ||
-      "non disponibile";
+  fermata.fermata?.binarioEffettivoPartenzaDescrizione ||
+  fermata.fermata?.binarioProgrammatoPartenzaDescrizione ||
+  fermata.fermata?.binarioEffettivoArrivoDescrizione ||
+  fermata.fermata?.binarioProgrammatoArrivoDescrizione ||
+  "non disponibile";
+
 
     const ritardo =
       fermata.ritardoPartenza ??
@@ -309,10 +259,8 @@ if (origineTreno === stazioneRichiesta) {
     `dal binario ${binarioFinale}. ` +
     `Al momento il treno ha un ritardo di ${ritardo} minuti.`;
 } else if (destinazioneTreno === stazioneRichiesta) {
-  const arrivato =
-    fermata.arrivoReale ||
-    fermata.arrivo_effettivo ||
-    fermata.arrivoEffettivo;
+const arrivato =
+  fermata.fermata?.effettiva;
   if (arrivato) {
     const oraArrivo =
       new Date(arrivato)
