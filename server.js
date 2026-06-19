@@ -557,8 +557,6 @@ const partenza =
           hour: "2-digit",
           minute: "2-digit"
         })
-    : "non disponibile";
-
     : trovato.compOrarioPartenza;
 
 let risposta;
