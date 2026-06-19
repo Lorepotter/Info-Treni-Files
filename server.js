@@ -144,12 +144,9 @@ const arrivo =
   fermata.fermata?.arrivo_teorico
     ? new Date(
         fermata.fermata.arrivo_teorico
-      ).toLocaleTimeString("it-IT", {
-        timeZone: "Europe/Rome",
-        hour: "2-digit",
-        minute: "2-digit"
-      })
+      )
     : "non disponibile";
+
 
 //console2
 console.log(
