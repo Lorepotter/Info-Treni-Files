@@ -122,44 +122,16 @@ async function vtFetch(url) {
           `Il treno ${input} non effettua fermata a ${stazione}.`
       });
     }
-//console1
-console.log(
-  "ARRIVO_TEORICO_RAW:",
-  fermata?.fermata?.arrivo_teorico
-);
-
-if (fermata?.fermata?.arrivo_teorico) {
-
-  console.log(
-    "DATE_RAW:",
-    new Date(
-      fermata.fermata.arrivo_teorico
-    )
-  );
-
-  console.log(
-    "ISO:",
-    new Date(
-      fermata.fermata.arrivo_teorico
-    ).toISOString()
-  );
-}
-
-//console1
 const arrivo =
   fermata.fermata?.arrivo_teorico
     ? new Date(
         fermata.fermata.arrivo_teorico
-      )
+      ).toLocaleTimeString("it-IT", {
+        hour: "2-digit",
+        minute: "2-digit"
+      })
     : "non disponibile";
 
-
-//console2
-console.log(
-  "ARRIVO_FORMATTATO:",
-  arrivo
-);
-//console2
 const partenza =
   fermata.partenza_teorica
     ? new Date(fermata.partenza_teorica)
