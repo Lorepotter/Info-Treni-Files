@@ -125,18 +125,18 @@ async function vtFetch(url) {
 //console1
 console.log(
   "ARRIVO_TEORICO_RAW:",
-  fermataPartenza?.arrivo_teorico
+  fermata?.arrivo_teorico
 );
 
 console.log(
   "DATE_RAW:",
-  new Date(fermataPartenza?.arrivo_teorico)
+  new Date(fermata?.arrivo_teorico)
 );
 
 console.log(
   "ISO:",
   new Date(
-    fermataPartenza?.arrivo_teorico
+    fermata?.arrivo_teorico
   ).toISOString()
 );
 //console1
