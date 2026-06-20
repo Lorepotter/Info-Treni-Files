@@ -533,22 +533,36 @@ const fermataPartenza = fermateFinali.find(
 
 const arrivo =
   fermataPartenza?.arrivo_teorico
-    ? new Date(fermataPartenza.arrivo_teorico)
-        .toLocaleTimeString("it-IT", {
+    ? new Intl.DateTimeFormat(
+        "it-IT",
+        {
           timeZone: "Europe/Rome",
           hour: "2-digit",
-          minute: "2-digit"
-        })
+          minute: "2-digit",
+          hour12: false
+        }
+      ).format(
+        new Date(
+          fermataPartenza.arrivo_teorico
+        )
+      )
     : "non disponibile";
 
 const partenza =
   fermataPartenza?.partenza_teorica
-    ? new Date(fermataPartenza.partenza_teorica)
-        .toLocaleTimeString("it-IT", {
+    ? new Intl.DateTimeFormat(
+        "it-IT",
+        {
           timeZone: "Europe/Rome",
           hour: "2-digit",
-          minute: "2-digit"
-        })
+          minute: "2-digit",
+          hour12: false
+        }
+      ).format(
+        new Date(
+          fermataPartenza.partenza_teorica
+        )
+      )
     : trovato.compOrarioPartenza;
 
 let risposta;
@@ -567,13 +581,29 @@ const ritardoVisualizzato =
   (trovato.ritardo ?? 0) < 0
     ? 0
     : (trovato.ritardo ?? 0);
-if (origineTreno === stazionePartenzaRichiesta) {
 
+const destinazioneFinaleTreno =
+  (datiAndamentoFinale.destinazione || "")
+    .trim()
+    .toUpperCase();
+if (origineTreno === stazionePartenzaRichiesta) {
   risposta =
     `Il primo treno trovato è il treno numero ${trovato.numeroTreno} ` +
     `diretto a ${datiAndamentoFinale.destinazione}. ` +
     `La partenza da ${datiAndamentoFinale.origine} è prevista alle ore ${partenza} ` +
     `dal binario ${binario}. ` +
+    `Al momento ha un ritardo di ${ritardoVisualizzato} minuti.`;
+
+} else if (
+  destinazioneFinaleTreno ===
+  destinazioneRicercata
+) {
+
+  risposta =
+    `Il primo treno trovato è il treno numero ${trovato.numeroTreno}, ` +
+    `proveniente da ${datiAndamentoFinale.origine}. ` +
+    `È previsto in arrivo a ${datiAndamentoFinale.destinazione} ` +
+    `alle ore ${arrivo} al binario ${binario}. ` +
     `Al momento ha un ritardo di ${ritardoVisualizzato} minuti.`;
 
 } else {
@@ -582,7 +612,7 @@ if (origineTreno === stazionePartenzaRichiesta) {
     `Il primo treno trovato è il treno numero ${trovato.numeroTreno}, ` +
     `proveniente da ${datiAndamentoFinale.origine} ` +
     `e diretto a ${datiAndamentoFinale.destinazione}. ` +
-    `È previsto in partenza da ${stazionePartenzaRichiesta}  alle ore ${partenza} ` +
+    `È previsto in partenza da ${stazionePartenzaRichiesta} alle ore ${partenza} ` +
     `dal binario ${binario}. ` +
     `Al momento ha un ritardo di ${ritardoVisualizzato} minuti.`;
 }
