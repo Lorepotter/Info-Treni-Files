@@ -582,28 +582,12 @@ const ritardoVisualizzato =
     ? 0
     : (trovato.ritardo ?? 0);
 
-const destinazioneFinaleTreno =
-  (datiAndamentoFinale.destinazione || "")
-    .trim()
-    .toUpperCase();
 if (origineTreno === stazionePartenzaRichiesta) {
   risposta =
     `Il primo treno trovato è il treno numero ${trovato.numeroTreno} ` +
     `diretto a ${datiAndamentoFinale.destinazione}. ` +
     `La partenza da ${datiAndamentoFinale.origine} è prevista alle ore ${partenza} ` +
     `dal binario ${binario}. ` +
-    `Al momento ha un ritardo di ${ritardoVisualizzato} minuti.`;
-
-} else if (
-  destinazioneFinaleTreno ===
-  destinazioneRicercata
-) {
-
-  risposta =
-    `Il primo treno trovato è il treno numero ${trovato.numeroTreno}, ` +
-    `proveniente da ${datiAndamentoFinale.origine}. ` +
-    `È previsto in arrivo a ${datiAndamentoFinale.destinazione} ` +
-    `alle ore ${arrivo} al binario ${binario}. ` +
     `Al momento ha un ritardo di ${ritardoVisualizzato} minuti.`;
 
 } else {
