@@ -585,7 +585,7 @@ const ritardoVisualizzato =
 if (origineTreno === stazionePartenzaRichiesta) {
   risposta =
     `Il primo treno trovato è il treno numero ${trovato.numeroTreno} ` +
-    `diretto a ${datiAndamentoFinale.destinazione}. ` +
+    `diretto a ${datiAndamentoFinale.destinazione}, che effettua fermata a ${destinazione}.` +
     `La partenza da ${datiAndamentoFinale.origine} è prevista alle ore ${partenza} ` +
     `dal binario ${binario}. ` +
     `Al momento ha un ritardo di ${ritardoVisualizzato} minuti.`;
@@ -595,7 +595,7 @@ if (origineTreno === stazionePartenzaRichiesta) {
   risposta =
     `Il primo treno trovato è il treno numero ${trovato.numeroTreno}, ` +
     `proveniente da ${datiAndamentoFinale.origine} ` +
-    `e diretto a ${datiAndamentoFinale.destinazione}. ` +
+    `e diretto a ${datiAndamentoFinale.destinazione}, che effettua fermata a ${destinazione}. ` +
     `È previsto in partenza da ${stazionePartenzaRichiesta} alle ore ${partenza} ` +
     `dal binario ${binario}. ` +
     `Al momento ha un ritardo di ${ritardoVisualizzato} minuti.`;
